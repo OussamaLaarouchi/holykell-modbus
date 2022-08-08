@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  modbus-server:
+    image: "hathoute/exprom-modbus-server"
+    depends_on:
+      - mariadb
+    restart: "always"
+    ports:
+      - "0.0.0.0:6651:6651/tcp"
+    environment:
+      - DEBUG_SHOW_VALUE=false
+      - SERVER_PORT=6651    # For a different port, please edit the binding, not this value
+      - SERVER_USE_RTU_OVER_TCP=true
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=user_passwd
+      - DATABASE_HOSTNAME=mariadb
+      - DATABASE_DATABASE_NAME=modbus_rtu
+  mariadb:
+    image: mariadb:10.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_passwd
+      - MYSQL_PASSWORD=user_passwd
+      - MYSQL_USER=user
+      - MYSQL_DATABASE=modbus_rtu
