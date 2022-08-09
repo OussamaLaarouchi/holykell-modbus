@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   modbus-server:
-    image: "hathoute/exprom-modbus-server"
+    image: holykell
     depends_on:
       - mariadb
     restart: "always"
